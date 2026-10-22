@@ -30,7 +30,7 @@
     <h2>Announcements</h2>
     {% for a in announcements %}
       <article class="announcement">
-        <h3>{% if a.pinned %}<span class="pin"><span aria-hidden="true">📌</span><span class="visually-hidden">Pinned</span></span> {% endif %}{{ a.title }}</h3>
+        <h3>{% if a.pinned %}<span class="pin"><span aria-hidden="true">📌</span><span class="visually-hidden">Pinned:</span></span> {% endif %}{{ a.title }}</h3>
         <p class="meta"><time datetime="{{ a.published_at|date:'Y-m-d' }}">{{ a.published_at|date:"j M Y" }}</time></p>
         <div class="prose">{{ a.body|markdown }}</div>
       </article>

@@ -11,7 +11,7 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <div class="container bar">
-      <a class="brand" href="{% url 'home' %}">{{ course.title }}</a>
+      <a class="brand" href="{% url 'home' %}">GenAI · HUJI</a>
       {% url 'home' as home_url %}
       <nav aria-label="Main">
         <a href="{{ home_url }}"{% if request.path == home_url %} aria-current="page"{% endif %}>Home</a>

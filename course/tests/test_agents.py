@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from django.test import TestCase
@@ -22,8 +23,10 @@ class AgentsStripTests(TestCase):
 
     def test_agents_strip_not_fixed(self):
         css = Path(__file__).resolve().parents[1] / "static" / "course" / "style.css"
-        rule = next(r for r in css.read_text(encoding="utf-8").split("}") if ".agents {" in r)
-        self.assertNotIn("fixed", rule)
+        bodies = re.findall(r"\.agents\s*\{([^}]*)\}", css.read_text(encoding="utf-8"))
+        self.assertTrue(bodies)
+        for body in bodies:
+            self.assertNotRegex(body, r"position\s*:\s*fixed")
 
     def test_css_respects_reduced_motion(self):
         css = Path(__file__).resolve().parents[1] / "static" / "course" / "style.css"
