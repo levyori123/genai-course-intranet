@@ -4,22 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ course.title }}{% endblock %} · Hebrew University</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'course/favicon.svg' %}">
   <link rel="stylesheet" href="{% static 'course/style.css' %}">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <div class="container bar">
       <a class="brand" href="{% url 'home' %}">{{ course.title }}</a>
-      <nav>
-        <a href="{% url 'home' %}">Home</a>
+      {% url 'home' as home_url %}
+      <nav aria-label="Main">
+        <a href="{{ home_url }}"{% if request.path == home_url %} aria-current="page"{% endif %}>Home</a>
       </nav>
     </div>
   </header>
-  <main class="container">
+  <main id="main" class="container" tabindex="-1">
     {% block content %}{% endblock %}
   </main>
-  <footer class="container site-footer">
-    The Hebrew University of Jerusalem · {{ course.title }} course intranet
+  <footer class="site-footer">
+    <div class="container">The Hebrew University of Jerusalem · {{ course.title }} course intranet</div>
   </footer>
   <div class="agents" aria-hidden="true">
     <svg width="0" height="0" focusable="false" style="position:absolute">

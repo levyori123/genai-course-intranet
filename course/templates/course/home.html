@@ -8,8 +8,8 @@
   {% if course.schedule_text %}<p class="meta">{{ course.schedule_text }}</p>{% endif %}
   {% if course.moodle_url or course.zoom_url %}
   <p class="actions">
-    {% if course.moodle_url %}<a class="btn" href="{{ course.moodle_url }}">Moodle</a>{% endif %}
-    {% if course.zoom_url %}<a class="btn" href="{{ course.zoom_url }}">Join on Zoom</a>{% endif %}
+    {% if course.moodle_url %}<a class="btn" href="{{ course.moodle_url }}">Moodle<span class="visually-hidden"> (opens the external Moodle site)</span></a>{% endif %}
+    {% if course.zoom_url %}<a class="btn" href="{{ course.zoom_url }}">Join on Zoom<span class="visually-hidden"> (opens the external Zoom site)</span></a>{% endif %}
   </p>
   {% endif %}
 </section>
@@ -19,7 +19,7 @@
     <h2>Next lecture</h2>
     {% if next_lecture %}
       <p class="card-title">Lecture {{ next_lecture.number }}: {{ next_lecture.title }}</p>
-      <p class="meta">{{ next_lecture.date|date:"l, j F Y" }}</p>
+      <p class="meta"><time datetime="{{ next_lecture.date|date:'Y-m-d' }}">{{ next_lecture.date|date:"l, j F Y" }}</time></p>
       {% if next_lecture.description %}<div class="prose">{{ next_lecture.description|markdown }}</div>{% endif %}
     {% else %}
       <p class="empty">No upcoming lectures scheduled.</p>
@@ -30,8 +30,8 @@
     <h2>Announcements</h2>
     {% for a in announcements %}
       <article class="announcement">
-        <h3>{% if a.pinned %}<span class="pin" title="Pinned">📌</span> {% endif %}{{ a.title }}</h3>
-        <p class="meta">{{ a.published_at|date:"j M Y" }}</p>
+        <h3>{% if a.pinned %}<span class="pin"><span aria-hidden="true">📌</span><span class="visually-hidden">Pinned</span></span> {% endif %}{{ a.title }}</h3>
+        <p class="meta"><time datetime="{{ a.published_at|date:'Y-m-d' }}">{{ a.published_at|date:"j M Y" }}</time></p>
         <div class="prose">{{ a.body|markdown }}</div>
       </article>
     {% empty %}

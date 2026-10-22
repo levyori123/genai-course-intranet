@@ -10,6 +10,21 @@ class AgentsStripTests(TestCase):
         self.assertIn('class="agents" aria-hidden="true"', html)
         self.assertEqual(html.count('class="agent '), 3)
 
+    def test_skip_link_and_main_target(self):
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn('class="skip-link" href="#main"', html)
+        self.assertIn('id="main"', html)
+        self.assertIn('aria-current="page"', html)
+
+    def test_favicon_linked(self):
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn("course/favicon.svg", html)
+
+    def test_agents_strip_not_fixed(self):
+        css = Path(__file__).resolve().parents[1] / "static" / "course" / "style.css"
+        rule = next(r for r in css.read_text(encoding="utf-8").split("}") if ".agents {" in r)
+        self.assertNotIn("fixed", rule)
+
     def test_css_respects_reduced_motion(self):
         css = Path(__file__).resolve().parents[1] / "static" / "course" / "style.css"
         self.assertIn("prefers-reduced-motion", css.read_text(encoding="utf-8"))
