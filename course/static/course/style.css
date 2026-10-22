@@ -1,11 +1,13 @@
 :root {
   --bg: #f6f8fb; --surface: #fff; --text: #1b2430; --muted: #5d6b7c;
   --accent: #14407a; --accent-text: #fff; --border: #dde3ec;
+  --ink: #2b3442; --skin: #f2c9a0; --coat-1: #b9863f; --coat-2: #5a7d5a; --coat-3: #8a5a8f; --gadget: #d9534f;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #0f1722; --surface: #17212f; --text: #e6ebf2; --muted: #93a1b4;
     --accent: #5b9bf0; --accent-text: #0b1220; --border: #263447;
+    --ink: #0b1220; --skin: #e0b48c; --coat-1: #d4a257; --coat-2: #7fa87f; --coat-3: #b883bd; --gadget: #ff7a70;
   }
 }
 * { box-sizing: border-box; }
@@ -33,4 +35,25 @@ nav a { margin-left: 16px; text-decoration: none; }
 .announcement h3 { margin: 0; font-size: 1rem; }
 .prose > :first-child { margin-top: 0; } .prose > :last-child { margin-bottom: 0; }
 .empty { color: var(--muted); }
-.site-footer { color: var(--muted); font-size: .85rem; padding-top: 16px; padding-bottom: 32px; border-top: 1px solid var(--border); }
+.site-footer { color: var(--muted); font-size: .85rem; padding-top: 16px; padding-bottom: 72px; border-top: 1px solid var(--border); }
+/* decorative running detectives */
+.agents { position: fixed; bottom: 0; left: 0; right: 0; height: 56px; pointer-events: none; overflow: hidden; z-index: 10; }
+.agent { position: absolute; bottom: 4px; left: 0; width: 32px; height: 48px; transform: translateX(-60px); animation: agent-run 18s linear infinite; }
+.agent svg { display: block; animation: agent-bob .4s ease-in-out infinite alternate; }
+.a1 { --coat: var(--coat-1); } .a2 { --coat: var(--coat-2); animation-duration: 26s; animation-delay: -9s; }
+.a3 { --coat: var(--coat-3); animation-duration: 22s; animation-delay: -4s; }
+.a2 svg { animation-duration: .5s; } .a3 svg { animation-duration: .32s; }
+.ink, .belt { fill: var(--ink); } .coat { fill: var(--coat); } .skin { fill: var(--skin); }
+.hat { fill: var(--ink); } .band { fill: var(--coat); } .gadget { fill: var(--gadget); stroke: var(--gadget); }
+.spring { stroke: var(--gadget); stroke-width: 1.5; }
+.leg { transform-box: fill-box; transform-origin: 50% 0; animation: agent-leg .4s ease-in-out infinite alternate; }
+.l2 { animation-direction: alternate-reverse; }
+.prop { transform-box: fill-box; transform-origin: 50% 50%; animation: agent-spin .25s linear infinite; }
+@keyframes agent-run { to { transform: translateX(100vw); } }
+@keyframes agent-bob { to { transform: translateY(-4px) rotate(3deg); } }
+@keyframes agent-leg { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
+@keyframes agent-spin { to { transform: scaleX(-1); } }
+@media (prefers-reduced-motion: reduce) {
+  .agent, .agent svg, .leg, .prop { animation: none; }
+  .agent { transform: none; left: 15%; } .a2 { left: 45%; } .a3 { left: 75%; }
+}

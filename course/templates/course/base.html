@@ -21,5 +21,29 @@
   <footer class="container site-footer">
     The Hebrew University of Jerusalem · {{ course.title }} course intranet
   </footer>
+  <div class="agents" aria-hidden="true">
+    <svg width="0" height="0" focusable="false" style="position:absolute">
+      <defs>
+        <g id="det-base">
+          <g class="leg l1"><path class="ink" d="M12 34v9h-3v3h7v-3h-1v-9z"/></g>
+          <g class="leg l2"><path class="ink" d="M20 34v9h-3v3h7v-3h-1v-9z"/></g>
+          <path class="coat" d="M8 20q8-5 16 0l3 17H5z"/>
+          <path class="belt" d="M7 30h18v2H7z"/>
+          <circle class="skin" cx="16" cy="14" r="5"/>
+          <path class="hat" d="M7 12h18v2H7zM11 12q0-7 5-7t5 7z"/>
+          <path class="band" d="M11 11h10v2H11z"/>
+        </g>
+        <symbol id="det1" viewBox="0 0 32 48"><use href="#det-base"/>
+          <path class="spring" d="M24 24l3 1-5 2 5 2-5 2 5 2" fill="none"/><circle class="gadget" cx="27" cy="33" r="2.5"/></symbol>
+        <symbol id="det2" viewBox="0 0 32 48"><use href="#det-base"/>
+          <g class="prop"><path class="gadget" d="M16 5V2M7 2h18v2H7z"/></g></symbol>
+        <symbol id="det3" viewBox="0 0 32 48"><use href="#det-base"/>
+          <path class="gadget" d="M9 40h4v3H9zM19 40h4v3h-4z"/><path class="spring" d="M11 36v4M21 36v4" fill="none"/></symbol>
+      </defs>
+    </svg>
+    <div class="agent a1"><svg viewBox="0 0 32 48" width="32" height="48"><use href="#det1"/></svg></div>
+    <div class="agent a2"><svg viewBox="0 0 32 48" width="32" height="48"><use href="#det2"/></svg></div>
+    <div class="agent a3"><svg viewBox="0 0 32 48" width="32" height="48"><use href="#det3"/></svg></div>
+  </div>
 </body>
 </html>
