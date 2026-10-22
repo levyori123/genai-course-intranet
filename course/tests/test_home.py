@@ -9,6 +9,11 @@ from course.templatetags.markdown_extras import markdown
 
 
 class HomePageTests(TestCase):
+    def setUp(self):
+        session = self.client.session
+        session["site_access"] = True
+        session.save()
+
     def test_empty_site_renders(self):
         r = self.client.get(reverse("home"))
         self.assertEqual(r.status_code, 200)
