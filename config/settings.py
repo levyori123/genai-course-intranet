@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -144,6 +145,20 @@ MAILERS = {
 }
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Hashed, compressed static filenames for long-lived caching. The manifest only
+# exists after `collectstatic`, and manifest storage raises on {% static %} for a
+# missing entry, so `manage.py test` uses plain storage instead of requiring a
+# collectstatic run first.
+_staticfiles_backend = (
+    'django.contrib.staticfiles.storage.StaticFilesStorage'
+    if 'test' in sys.argv[1:2]
+    else 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+)
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': _staticfiles_backend},
+}
 
 
 # Session and cookie hardening.

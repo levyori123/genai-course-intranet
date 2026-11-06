@@ -55,6 +55,24 @@ class SitePasswordTests(TestCase):
         self.assertEqual(c.post(reverse("enter"), {"password": "open-sesame"}).status_code, 403)
 
 
+@override_settings(SITE_PASSWORD="open-sesame")
+class EnterPageTests(TestCase):
+    def test_renders_visible_label_and_hidden_fields(self):
+        r = self.client.get(reverse("enter") + "?next=/x/")
+        self.assertContains(r, '<label for="id_password">Password</label>', html=True)
+        self.assertContains(r, 'name="csrfmiddlewaretoken"')
+        self.assertContains(r, '<input type="hidden" name="next" value="/x/">', html=True)
+        self.assertNotContains(r, 'role="alert"')
+        self.assertNotContains(r, "aria-invalid")
+
+    def test_wrong_password_shows_accessible_error(self):
+        r = self.client.post(reverse("enter"), {"password": "nope"})
+        self.assertContains(r, 'role="alert"', status_code=401)
+        self.assertContains(r, "That password isn&#x27;t right.", status_code=401)
+        self.assertContains(r, 'aria-invalid="true"', status_code=401)
+        self.assertContains(r, 'aria-describedby="enter-error enter-help"', status_code=401)
+
+
 @override_settings(SITE_PASSWORD="")
 class UnconfiguredPasswordTests(TestCase):
     def test_fails_closed(self):

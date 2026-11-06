@@ -8,6 +8,7 @@
   /* light tokens: every text/background pair >= 7:1 */
   --bg: #f4f6fa; --surface: #fff; --hero-bg: #e3ebf7; --text: #15202e; --muted: #3f4c61;
   --accent: #0f3a73; --accent-text: #fff; --border: #c9d3e1; --focus: #0f3a73;
+  --error: #9b1c1c; --error-bg: #fdecec;
   --shadow: 0 1px 2px rgba(15, 30, 55, .08), 0 4px 12px rgba(15, 30, 55, .06);
   --ink: #2b3442; --skin: #f2c9a0; --coat-1: #b9863f; --coat-2: #5a7d5a; --coat-3: #8a5a8f; --gadget: #d9534f;
 }
@@ -15,6 +16,7 @@
   :root {
     --bg: #0e1621; --surface: #162131; --hero-bg: #12263f; --text: #e8edf4; --muted: #aab7c8;
     --accent: #8ab8f5; --accent-text: #0b1220; --border: #35465d; --focus: #8ab8f5;
+    --error: #ff9b94; --error-bg: #3a1a1d;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 12px rgba(0, 0, 0, .3);
     --ink: #6b7d96; --skin: #e0b48c; --coat-1: #d4a257; --coat-2: #7fa87f; --coat-3: #b883bd; --gadget: #ff7a70;
   }
@@ -73,6 +75,17 @@ nav a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-
 .leg { transform-box: fill-box; transform-origin: 50% 0; animation: agent-leg .4s ease-in-out infinite alternate; }
 .l2 { animation-direction: alternate-reverse; }
 .prop { transform-box: fill-box; transform-origin: 50% 50%; animation: agent-spin .25s linear infinite; }
+.enter { display: flex; justify-content: center; padding: var(--s12) 0 var(--s8); }
+.enter-card { width: 100%; max-width: 420px; }
+.enter-card h1 { margin: 0 0 var(--s2); font-size: var(--step-2); }
+.enter-form { display: flex; flex-direction: column; gap: var(--s2); margin-top: var(--s4); }
+.enter-form label { font-weight: 600; }
+.enter-form input[type="password"] { box-sizing: border-box; width: 100%; min-height: 44px; padding: var(--s2) var(--s3); font: inherit;
+  color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: var(--s2); }
+.enter-form input[aria-invalid="true"] { border-color: var(--error); border-width: 2px; }
+.enter-form .btn { margin-top: var(--s2); border: 0; font: inherit; font-weight: 600; cursor: pointer; }
+.form-error { margin: var(--s4) 0 0; padding: var(--s3); color: var(--error); background: var(--error-bg); border: 1px solid var(--error);
+  border-radius: var(--s2); font-weight: 600; }
 @keyframes agent-run { to { transform: translateX(100vw); } }
 @keyframes agent-bob { to { transform: translateY(-4px) rotate(3deg); } }
 @keyframes agent-leg { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
@@ -90,6 +103,7 @@ nav a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-
   .a2, .a3 { display: none; }
   .actions { flex-direction: column; }
   .btn { width: 100%; }
+  .enter { padding-top: var(--s8); }
   .card { padding: var(--s4); }
 }
 @media (prefers-reduced-motion: reduce) {
